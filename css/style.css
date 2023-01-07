@@ -1,0 +1,64 @@
+/* Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+}
+
+/* Project setup */
+:root {
+    --primary-color: lightgrey;
+    --secondary-color: ;
+    --accent-color: ;
+    --main-bg-color: ;
+}
+
+h1, 
+h2 {
+    text-align: center;
+}
+
+h1 {
+    font-size: 4rem;
+}
+
+.players {
+    margin: 1.5em 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3em;
+}
+
+.players h3 {
+    font-size: 2rem;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 3px;
+    width: 30em;
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7rem;
+    background-color: var(--primary-color);
+    cursor: pointer;
+    width: 1.4em;
+    height: 1.2em;
+}
+
+.inactive {
+    color: var(--primary-color)
+}
