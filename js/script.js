@@ -2,7 +2,7 @@ const gameboardDiv = document.querySelector('.gameboard');
 const player1Name = document.querySelector('.player1');
 const player2Name = document.querySelector('.player2');
 
-// Gameboard Module initial setup
+// Gameboard Module initial array and board setup
 const gameboard = (() => {
 	const gameArray = [
 		['', '', ''],
@@ -18,10 +18,9 @@ const gameboard = (() => {
 				cellDiv.setAttribute('data-col', `${col}`);
 				cellDiv.textContent = gameArray[row][col];
 				cellDiv.addEventListener('click', playGame.selectCell);
-
 				gameboardDiv.appendChild(cellDiv);
+				}
 			}
-		}
 		}
 	return { gameArray, display };
 })();
@@ -29,13 +28,11 @@ const gameboard = (() => {
 // Player Factory Function
 const playerFactory = (name, mark) => {
 	const getName = () => name;
-	
 	return { name, mark, getName };
 };
 
 // Play Game Module
 const playGame = (function () {
-	
 	function switchPlayer() {
 		if (activePlayer === player1) {
 			player1Name.classList.toggle('inactive');
@@ -46,14 +43,32 @@ const playGame = (function () {
 			player2Name.classList.toggle('inactive');
 			activePlayer = player1;
 		}
-	}
+	};
+
+	function checkForWin() {
+		gameboard.gameArray.forEach(function (row) {
+			let winner = row.every((cell) => cell === activePlayer.mark);
+
+			if (winner) {
+				console.log(`${activePlayer.name} won!`);
+				}
+			});
+		
+		}
 	function selectCell(e) {
-		e.target.textContent = activePlayer.mark;
-		const row = e.target.dataset.row;
-		const col = e.target.dataset.col;
-		gameboard.gameArray[row][col] = activePlayer.mark;
-		switchPlayer(activePlayer);
-	}
+		// if cell is empty allow select, insert mark and add to array
+		if (e.target.textContent === '') {
+			e.target.textContent = activePlayer.mark;
+			const row = e.target.dataset.row;
+			const col = e.target.dataset.col;
+			gameboard.gameArray[row][col] = activePlayer.mark;
+			checkForWin();
+			switchPlayer();
+		} else {
+			// if the cell is taken don't allow selection
+			e.target.style.cursor = 'none';
+		}
+	};
 	return { selectCell }
 })();
 
