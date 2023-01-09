@@ -62,3 +62,10 @@ h1 {
 .inactive {
     color: var(--primary-color)
 }
+
+#result {
+    margin-top: 1em;
+    font-size: 2rem;
+    color: rebeccapurple;
+    font-style: italic;
+}

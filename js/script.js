@@ -1,6 +1,7 @@
 const gameboardDiv = document.querySelector('.gameboard');
 const player1Name = document.querySelector('.player1');
 const player2Name = document.querySelector('.player2');
+const result = document.querySelector('#result');
 
 // Gameboard Module initial array and board setup
 const gameboard = (() => {
@@ -49,7 +50,7 @@ const playGame = (function () {
 		gameboard.gameArray.forEach(function (row) {
 			let winner = row.every((cell) => cell === activePlayer.mark);
 			if (winner) {
-				console.log(`${activePlayer.name} won!`);
+				result.textContent = `${activePlayer.name} won!`;
 				} 
 			});
 			if ((
@@ -74,16 +75,14 @@ const playGame = (function () {
 				gameboard.gameArray[2][0] === activePlayer.mark) 
 				) {
 				winner = activePlayer.name;
-				console.log(`${activePlayer.name} won!`);
-				};
-		gameboard.gameArray.every(function(row) {
-				row.every(function(col) {
-					if (col !== "") {
-						console.log(`It's a draw.`);
-					}
-				});
-			});
-		};
+				result.textContent = `${activePlayer.name} won!`;
+				} else if ((!gameboard.gameArray[0].includes("")) && 
+					(!gameboard.gameArray[1].includes("")) &&
+					(!gameboard.gameArray[2].includes("")))
+						{
+						result.textContent = `It's a draw.`;
+						};
+	};
 
 
 	function selectCell(e) {
@@ -103,8 +102,8 @@ const playGame = (function () {
 	return { selectCell }
 })();
 
-const player1 = playerFactory('player1', 'X');
-const player2 = playerFactory('player2', 'O');
+const player1 = playerFactory('Player 1', 'X');
+const player2 = playerFactory('Player 2', 'O');
 let activePlayer = player1;
 gameboard.display();
 
