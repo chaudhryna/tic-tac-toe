@@ -48,13 +48,44 @@ const playGame = (function () {
 	function checkForWin() {
 		gameboard.gameArray.forEach(function (row) {
 			let winner = row.every((cell) => cell === activePlayer.mark);
-
 			if (winner) {
 				console.log(`${activePlayer.name} won!`);
-				}
+				} 
 			});
-		
-		}
+			if ((
+				gameboard.gameArray[0][0] === activePlayer.mark &&
+				gameboard.gameArray[1][0] === activePlayer.mark &&
+				gameboard.gameArray[2][0] === activePlayer.mark) 
+				|| 
+				(gameboard.gameArray[0][1] === activePlayer.mark &&
+				gameboard.gameArray[1][1] === activePlayer.mark &&
+				gameboard.gameArray[2][1] === activePlayer.mark) 
+				|| 
+				(gameboard.gameArray[0][2] === activePlayer.mark &&
+				gameboard.gameArray[1][2] === activePlayer.mark &&
+				gameboard.gameArray[2][2] === activePlayer.mark) 
+				||
+				(gameboard.gameArray[0][0] === activePlayer.mark &&
+				gameboard.gameArray[1][1] === activePlayer.mark &&
+				gameboard.gameArray[2][2] === activePlayer.mark) 
+				||
+				(gameboard.gameArray[0][2] === activePlayer.mark &&
+				gameboard.gameArray[1][1] === activePlayer.mark &&
+				gameboard.gameArray[2][0] === activePlayer.mark) 
+				) {
+				winner = activePlayer.name;
+				console.log(`${activePlayer.name} won!`);
+				};
+		gameboard.gameArray.every(function(row) {
+				row.every(function(col) {
+					if (col !== "") {
+						console.log(`It's a draw.`);
+					}
+				});
+			});
+		};
+
+
 	function selectCell(e) {
 		// if cell is empty allow select, insert mark and add to array
 		if (e.target.textContent === '') {
