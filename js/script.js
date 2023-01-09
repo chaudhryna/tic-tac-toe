@@ -1,7 +1,7 @@
 const gameboardDiv = document.querySelector('.gameboard');
 const player1Name = document.querySelector('.player1');
 const player2Name = document.querySelector('.player2');
-const result = document.querySelector('#result');
+const restartBtn = document.querySelector('.restartBtn'); 
 
 // Gameboard Module initial array and board setup
 const gameboard = (() => {
@@ -34,6 +34,8 @@ const playerFactory = (name, mark) => {
 
 // Play Game Module
 const playGame = (function () {
+	const result = document.querySelector('#result');
+
 	function switchPlayer() {
 		if (activePlayer === player1) {
 			player1Name.classList.toggle('inactive');
@@ -47,12 +49,15 @@ const playGame = (function () {
 	};
 
 	function checkForWin() {
+		// check for win on row
 		gameboard.gameArray.forEach(function (row) {
 			let winner = row.every((cell) => cell === activePlayer.mark);
 			if (winner) {
 				result.textContent = `${activePlayer.name} won!`;
+				gameOver();
 				} 
 			});
+			// check for win on column and check for draw
 			if ((
 				gameboard.gameArray[0][0] === activePlayer.mark &&
 				gameboard.gameArray[1][0] === activePlayer.mark &&
@@ -76,14 +81,23 @@ const playGame = (function () {
 				) {
 				winner = activePlayer.name;
 				result.textContent = `${activePlayer.name} won!`;
+				gameOver();
 				} else if ((!gameboard.gameArray[0].includes("")) && 
 					(!gameboard.gameArray[1].includes("")) &&
 					(!gameboard.gameArray[2].includes("")))
 						{
 						result.textContent = `It's a draw.`;
+						gameOver();
 						};
 	};
 
+	function gameOver() {
+		const allCells = document.querySelectorAll('.cell');
+		allCells.forEach((cell) => {
+			cell.classList.add('disableClicks');
+		});
+		result.textContent += `\nClick the Restart Button to play again.`
+	};
 
 	function selectCell(e) {
 		// if cell is empty allow select, insert mark and add to array
@@ -96,7 +110,7 @@ const playGame = (function () {
 			switchPlayer();
 		} else {
 			// if the cell is taken don't allow selection
-			e.target.style.cursor = 'none';
+			e.target.classList.add('disableClicks')
 		}
 	};
 	return { selectCell }
@@ -107,3 +121,6 @@ const player2 = playerFactory('Player 2', 'O');
 let activePlayer = player1;
 gameboard.display();
 
+restartBtn.addEventListener('click', () => {
+	document.location.reload();
+});

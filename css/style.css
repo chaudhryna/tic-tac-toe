@@ -10,7 +10,10 @@
 }
 
 /* Project setup */
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One&family=Permanent+Marker&family=Roboto:wght@400;700&display=swap');
+
 :root {
+    font-family: 'Roboto', sans-serif;
     --primary-color: lightgrey;
     --secondary-color: ;
     --accent-color: ;
@@ -24,6 +27,14 @@ h2 {
 
 h1 {
     font-size: 4rem;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.restartBtn {
+    padding: .5em;
+    background-color: purple;
+    color: #fff;
+    border-radius: 8px;
 }
 
 .players {
@@ -53,6 +64,7 @@ h1 {
     align-items: center;
     justify-content: center;
     font-size: 7rem;
+    font-family: 'Merienda One', cursive;
     background-color: var(--primary-color);
     cursor: pointer;
     width: 1.4em;
@@ -68,4 +80,9 @@ h1 {
     font-size: 2rem;
     color: rebeccapurple;
     font-style: italic;
+}
+
+.disableClicks {
+    pointer-events: none;
+    cursor: none;
 }
